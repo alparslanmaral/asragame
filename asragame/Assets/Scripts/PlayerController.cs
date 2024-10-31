@@ -12,7 +12,7 @@ public class PlayerController : MonoBehaviour
     private CapsuleCollider playerCollider;
     private Vector3 originalScale;
     private float originalColliderHeight;
-    private float crouchColliderHeight = 1f;  // Küçültülmüþ collider yüksekliði
+    private float crouchColliderHeight = 0.2f;  // Küçültülmüþ collider yüksekliði
 
     private Animator animator;  // Animasyonlarý kontrol etmek için
 
