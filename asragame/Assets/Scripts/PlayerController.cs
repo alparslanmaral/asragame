@@ -8,7 +8,7 @@ public class PlayerController : MonoBehaviour
     private Rigidbody rb;
     private bool isGrounded;
     private bool isCrouching;
-
+    //
     private CapsuleCollider playerCollider;
     private Vector3 originalScale;
     private float originalColliderHeight;
