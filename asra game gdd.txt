@@ -1,0 +1,32 @@
+Tema: Mısır ve Arap havası
+Roguelike game mechanics
+
+Hikaye:
+Mısırlı bir ailenin çocuğu olan Asra, ana karakterimiz olacak.
+
+Bilinmeyen bir yaratık tarafından bulunduğu zamanın durduruluşuna tanıklık ediyor. Ailesi ve etrafındakiler zamanda sıkışıp kalıyor. Karakterimiz Asra bunun peşine düşüyor.
+
+Hikayenin geçtiği yerler piramitler ve çöl.
+
+Bir kehanet var ve yazıtlarda karakterimiz kehanetin tam merkezinde yer alıyor. Karakter yazıtlarda dünyalarını kurtaran karakteri görüyor ama kendisi olduğunu anlamıyor.
+
+Kehanette evrende bir saf iyilik ve bir saf kötülük olduğundan bahsedilecek. Asra saf iyilik ve enemy ise saf kötülük olacak.
+
+
+Onboarding:
+Karakterimiz sokakta arkadaşlarıyla oyun oynarken büyük bir yaratık dumanla beraber geliyor ve her taraf karanlıklaşıyor.
+
+Gözünü açtığında ailesinin zamanda sıkışıp kaldığını görüyor. Arkadaşı da kendi ailesinin başında ağlıyor. Konuşmaya çalıştığımızda cevap vermiyor ve onun da ağlarken zamanda sıkıştığını görüyoruz.
+
+Karakterimiz fırtınadan dolayı sokakları kum tepeleriyle kaplanmış yolda yürümeye başlıyor. Burada oyuncu temel movement mekaniklerini öğrenecek.
+
+Önümüzdeki kum tepesine tırmanacakken tepede her yeri örtülü bir adam (Hızır) elinde parlayan bir şeyle (?) bizi bekliyor. Tepeye çıktığımızda adam (Hızır) kayboluyor ve az önce elinde tuttuğu şey (?) havada duruyor.
+
+Karakterimiz nesneyi aldığında UI'da skill barımız açılacak. 
+
+
+
+
+
+
+
