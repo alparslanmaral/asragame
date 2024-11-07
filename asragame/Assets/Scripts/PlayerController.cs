@@ -5,16 +5,21 @@ public class PlayerController : MonoBehaviour
     public float moveSpeed = 5f;
     public float jumpForce = 10f;
     public float crouchSpeed = 2.5f;
+    public float rotationSpeed = 5f; // Smooth dönüþ hýzý
+
     private Rigidbody rb;
     private bool isGrounded;
     private bool isCrouching;
-    //
+
     private CapsuleCollider playerCollider;
     private Vector3 originalScale;
     private float originalColliderHeight;
+    private Vector3 originalColliderCenter;
     public float crouchColliderHeight = 0.4f;  // Küçültülmüþ collider yüksekliði
 
     private Animator animator;  // Animasyonlarý kontrol etmek için
+
+    private Quaternion targetRotation; // Hedef rotasyon
 
     void Start()
     {
@@ -23,25 +28,43 @@ public class PlayerController : MonoBehaviour
         playerCollider = GetComponent<CapsuleCollider>();
         originalScale = transform.localScale;
         originalColliderHeight = playerCollider.height;
+        originalColliderCenter = playerCollider.center;
 
         animator = GetComponent<Animator>();  // Animator bileþenini al
+
+        targetRotation = transform.rotation;  // Ýlk hedef rotasyon
     }
 
     void Update()
     {
         float horizontalInput = Input.GetAxis("Horizontal");
 
+        // Yöne göre karakteri 90 ve -90 derece arasýnda döndürme
+        if (horizontalInput > 0)
+        {
+            targetRotation = Quaternion.Euler(0, 90, 0); // Saða giderken hedef rotasyonu 90 derece yap
+        }
+        else if (horizontalInput < 0)
+        {
+            targetRotation = Quaternion.Euler(0, -90, 0); // Sola giderken hedef rotasyonu -90 derece yap
+        }
+
+        // Hedef rotasyona doðru yumuþak dönüþ
+        transform.rotation = Quaternion.Lerp(transform.rotation, targetRotation, rotationSpeed * Time.deltaTime);
+
         // Crouch iþlemi
         if (Input.GetKeyDown(KeyCode.C) && isGrounded)
         {
             isCrouching = true;
             playerCollider.height = crouchColliderHeight;  // Collider'ý küçült
+            playerCollider.center = new Vector3(originalColliderCenter.x, originalColliderCenter.y - (originalColliderHeight - crouchColliderHeight) / 2, originalColliderCenter.z); // Collider merkezini yukarý kaydýr
             animator.SetBool("isCrouch", true);  // Crouch animasyonunu baþlat
         }
         else if (Input.GetKeyUp(KeyCode.C))
         {
             isCrouching = false;
             playerCollider.height = originalColliderHeight;  // Collider'ý eski haline getir
+            playerCollider.center = originalColliderCenter;  // Collider merkezini eski haline getir
             animator.SetBool("isCrouch", false);  // Crouch animasyonunu durdur
         }
 

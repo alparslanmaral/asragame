@@ -9,6 +9,7 @@ public class TimeControl : MonoBehaviour
     public float rechargeRadius = 1f;
     public LayerMask timeCapsuleLayer;
     public Slider abilityBar;
+    public GameObject abilityEffectObject; // Yetenek aktif olduðunda devreye girecek obje
 
     private bool isTimeSlowed = false;
     private bool isNearTimeCapsule = false;
@@ -22,6 +23,11 @@ public class TimeControl : MonoBehaviour
         abilityBar.maxValue = maxAbilityDuration;
         abilityBar.value = abilityDuration;
         FindAffectedObjects();
+
+        if (abilityEffectObject != null)
+        {
+            abilityEffectObject.SetActive(false); // Baþlangýçta devre dýþý
+        }
     }
 
     void Update()
@@ -55,6 +61,11 @@ public class TimeControl : MonoBehaviour
     {
         isTimeSlowed = !isTimeSlowed;
         float timeScale = isTimeSlowed ? 0.01f : 1f;
+
+        if (abilityEffectObject != null)
+        {
+            abilityEffectObject.SetActive(isTimeSlowed); // Yetenek aktifken obje aktif, deðilken devre dýþý
+        }
 
         foreach (var rb in affectedRigidbodies)
         {
