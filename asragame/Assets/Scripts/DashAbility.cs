@@ -25,38 +25,38 @@ using UnityEngine;
 
 public class DashAbility : MonoBehaviour
 {
-    public float dashDistance = 5f; // Dash mesafesi
-    public float dashCooldown = 1f; // Dash cooldown süresi
-    public TimeControl timeControl; // TimeControl scriptine referans
+    public float dashDistance = 5f; 
+    public float dashCooldown = 1f; 
+    public TimeControl timeControl; 
     private bool isDashing = false;
     private float dashTime;
-    private Vector3 dashDirection; // Dash yönü
+    private Vector3 dashDirection; 
 
     void Start()
     {
-        // TimeControl bileþenini bulma
+        
         timeControl = FindObjectOfType<TimeControl>();
     }
 
     void Update()
     {
-        // Tuþlara basma kontrolü
+       
         if (Input.GetKeyDown(KeyCode.A))
         {
-            dashDirection = Vector3.left; // Sol yön
+            dashDirection = Vector3.left; 
         }
         else if (Input.GetKeyDown(KeyCode.D))
         {
-            dashDirection = Vector3.right; // Sað yön
+            dashDirection = Vector3.right; 
         }
 
-        // Dash iþlemi
+        
         if (Input.GetKeyDown(KeyCode.Q) && !isDashing && timeControl.abilityDuration >= timeControl.maxAbilityDuration * 0.2f)
         {
             Dash();
         }
 
-        // Dashing süresini kontrol et
+        
         if (isDashing)
         {
             dashTime += Time.deltaTime;
@@ -72,20 +72,20 @@ public class DashAbility : MonoBehaviour
         isDashing = true;
         dashTime = 0f;
 
-        // Güç barýndan %20 azaltma
+        
         timeControl.abilityDuration -= timeControl.maxAbilityDuration * 0.2f;
 
-        // Dash yönünde raycast ile engel kontrolü
+        
         RaycastHit hit;
         Vector3 dashTarget = transform.position + dashDirection * dashDistance;
 
-        // Eðer bir engel varsa, engelin yanýna kadar git
+        
         if (Physics.Raycast(transform.position, dashDirection, out hit, dashDistance))
         {
-            dashTarget = hit.point - dashDirection * 0.1f; // Engelin hemen önünde dur
+            dashTarget = hit.point - dashDirection * 0.1f;
         }
 
-        // Karakteri hedef konuma taþý
+        
         transform.position = dashTarget;
     }
 }

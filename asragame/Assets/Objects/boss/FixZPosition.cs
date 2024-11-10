@@ -27,11 +27,11 @@ using UnityEngine;
 
 public class FixZPosition : MonoBehaviour
 {
-    public float fixedZ = 0f; // Sabitlenmek istenen Z pozisyonu
+    public float fixedZ = 0f; 
 
     void Update()
     {
-        // X ve Y pozisyonunu korurken Z pozisyonunu sabitliyoruz
+        
         transform.position = new Vector3(transform.position.x, transform.position.y, fixedZ);
     }
 }

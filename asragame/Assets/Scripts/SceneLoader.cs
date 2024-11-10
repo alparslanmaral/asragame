@@ -28,10 +28,10 @@ using UnityEngine.SceneManagement;
 
 public class SceneLoader : MonoBehaviour
 {
-    public string YuklenecekSahne = "SahneAdiYaz"; // AnaMap sahnesinin adý
+    public string YuklenecekSahne = "SahneAdiYaz"; 
 
     public void ReturnToMainMap()
     {
-        SceneManager.LoadScene(YuklenecekSahne); // AnaMap sahnesine geçiþ yap
+        SceneManager.LoadScene(YuklenecekSahne); 
     }
 }

@@ -32,14 +32,14 @@ public class TimeControl : MonoBehaviour
     public float rechargeRadius = 1f;
     public LayerMask timeCapsuleLayer;
     public Slider abilityBar;
-    public GameObject abilityEffectObject; // Yetenek aktif olduðunda devreye girecek obje
+    public GameObject abilityEffectObject; 
 
     private bool isTimeSlowed = false;
     private bool isNearTimeCapsule = false;
     private List<Rigidbody> affectedRigidbodies = new List<Rigidbody>();
     private List<Animator> affectedAnimators = new List<Animator>();
     private List<Animation> affectedAnimations = new List<Animation>();
-    private List<EnemyFollow> enemyFollowScripts = new List<EnemyFollow>(); // EnemyFollow scriptlerini takip listesi
+    private List<EnemyFollow> enemyFollowScripts = new List<EnemyFollow>();
 
     void Start()
     {
@@ -50,7 +50,7 @@ public class TimeControl : MonoBehaviour
 
         if (abilityEffectObject != null)
         {
-            abilityEffectObject.SetActive(false); // Baþlangýçta devre dýþý
+            abilityEffectObject.SetActive(false); 
         }
     }
 
@@ -88,7 +88,7 @@ public class TimeControl : MonoBehaviour
 
         if (abilityEffectObject != null)
         {
-            abilityEffectObject.SetActive(isTimeSlowed); // Yetenek aktifken obje aktif, deðilken devre dýþý
+            abilityEffectObject.SetActive(isTimeSlowed); 
         }
 
         foreach (var rb in affectedRigidbodies)
@@ -112,7 +112,7 @@ public class TimeControl : MonoBehaviour
             }
         }
 
-        // EnemyFollow scriptlerini devre dýþý býrak veya etkinleþtir
+        
         foreach (var enemyFollow in enemyFollowScripts)
         {
             enemyFollow.enabled = !isTimeSlowed;

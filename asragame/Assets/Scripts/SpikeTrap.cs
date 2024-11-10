@@ -1,5 +1,5 @@
 using UnityEngine;
-using UnityEngine.SceneManagement; // Sahne geçiþi için gerekli namespace
+using UnityEngine.SceneManagement; 
 using System.Collections;
 
 //
@@ -27,19 +27,19 @@ using System.Collections;
 
 public class SpikeTrap : MonoBehaviour
 {
-    public GameObject spikeUp;        // SpikeUp objesini buraya baðlayacaðýz
-    public float raiseHeight = 2f;    // SpikeUp'un yukarý çýkacaðý mesafe
-    public float raiseSpeed = 2f;     // SpikeUp'un yükselme hýzý
-    public string sceneToLoad;        // Public olarak sahne adý
+    public GameObject spikeUp;        
+    public float raiseHeight = 2f;    
+    public float raiseSpeed = 2f;     
+    public string sceneToLoad;        
 
-    private Vector3 initialPosition;  // SpikeUp'un baþlangýç pozisyonu
-    private bool playerTriggered = false;  // Oyuncu temas etti mi?
+    private Vector3 initialPosition;  
+    private bool playerTriggered = false;  
 
     void Start()
     {
         if (spikeUp != null)
         {
-            initialPosition = spikeUp.transform.position;  // SpikeUp'un ilk pozisyonunu kaydediyoruz
+            initialPosition = spikeUp.transform.position;  
         }
     }
 
@@ -47,18 +47,18 @@ public class SpikeTrap : MonoBehaviour
     {
         if (other.CompareTag("Player"))
         {
-            playerTriggered = true;  // Oyuncu temas ettiðinde tetiklenir
-            StartCoroutine(WaitAndChangeScene()); // 2 saniye bekleyip sahneye geçmek için Coroutine baþlat
+            playerTriggered = true;  
+            StartCoroutine(WaitAndChangeScene()); 
         }
     }
 
-    // Coroutine ile 2 saniye bekleme iþlemi
+    
     private IEnumerator WaitAndChangeScene()
     {
-        yield return new WaitForSeconds(2f);  // 2 saniye bekle
+        yield return new WaitForSeconds(2f);  
         if (!string.IsNullOrEmpty(sceneToLoad))
         {
-            SceneManager.LoadScene(sceneToLoad);  // Yeni sahneye geçiþ
+            SceneManager.LoadScene(sceneToLoad); 
         }
         else
         {
@@ -70,14 +70,14 @@ public class SpikeTrap : MonoBehaviour
     {
         if (playerTriggered && spikeUp != null)
         {
-            // SpikeUp'u yukarý kaldýr
+            
             Vector3 targetPosition = initialPosition + new Vector3(0, raiseHeight, 0);
             spikeUp.transform.position = Vector3.MoveTowards(spikeUp.transform.position, targetPosition, raiseSpeed * Time.deltaTime);
 
-            // SpikeUp hedef yüksekliðe ulaþtýysa tetiklemeyi kapat
+            
             if (spikeUp.transform.position == targetPosition)
             {
-                playerTriggered = false;  // Ýsterseniz burada false yapabilirsiniz veya baþka iþlemler ekleyebilirsiniz
+                playerTriggered = false;  
             }
         }
     }

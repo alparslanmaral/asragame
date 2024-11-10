@@ -28,7 +28,7 @@ public class PlayerController : MonoBehaviour
     public float moveSpeed = 5f;
     public float jumpForce = 10f;
     public float crouchSpeed = 2.5f;
-    public float rotationSpeed = 5f; // Smooth dönüþ hýzý
+    public float rotationSpeed = 5f;
 
     private Rigidbody rb;
     private bool isGrounded;
@@ -38,11 +38,11 @@ public class PlayerController : MonoBehaviour
     private Vector3 originalScale;
     private float originalColliderHeight;
     private Vector3 originalColliderCenter;
-    public float crouchColliderHeight = 0.4f;  // Küçültülmüþ collider yüksekliði
+    public float crouchColliderHeight = 0.4f; 
 
-    private Animator animator;  // Animasyonlarý kontrol etmek için
+    private Animator animator;  
 
-    private Quaternion targetRotation; // Hedef rotasyon
+    private Quaternion targetRotation;
 
     void Start()
     {
@@ -53,61 +53,61 @@ public class PlayerController : MonoBehaviour
         originalColliderHeight = playerCollider.height;
         originalColliderCenter = playerCollider.center;
 
-        animator = GetComponent<Animator>();  // Animator bileþenini al
+        animator = GetComponent<Animator>();  
 
-        targetRotation = transform.rotation;  // Ýlk hedef rotasyon
+        targetRotation = transform.rotation;  
     }
 
     void Update()
     {
         float horizontalInput = Input.GetAxis("Horizontal");
 
-        // Yöne göre karakteri 90 ve -90 derece arasýnda döndürme
+        
         if (horizontalInput > 0)
         {
-            targetRotation = Quaternion.Euler(0, 90, 0); // Saða giderken hedef rotasyonu 90 derece yap
+            targetRotation = Quaternion.Euler(0, 90, 0); 
         }
         else if (horizontalInput < 0)
         {
-            targetRotation = Quaternion.Euler(0, -90, 0); // Sola giderken hedef rotasyonu -90 derece yap
+            targetRotation = Quaternion.Euler(0, -90, 0); 
         }
 
-        // Hedef rotasyona doðru yumuþak dönüþ
+        
         transform.rotation = Quaternion.Lerp(transform.rotation, targetRotation, rotationSpeed * Time.deltaTime);
 
-        // Crouch iþlemi
+        
         if (Input.GetKeyDown(KeyCode.C) && isGrounded)
         {
             isCrouching = true;
-            playerCollider.height = crouchColliderHeight;  // Collider'ý küçült
+            playerCollider.height = crouchColliderHeight;  
             playerCollider.center = new Vector3(originalColliderCenter.x, originalColliderCenter.y - (originalColliderHeight - crouchColliderHeight) / 2, originalColliderCenter.z); // Collider merkezini yukarý kaydýr
-            animator.SetBool("isCrouch", true);  // Crouch animasyonunu baþlat
+            animator.SetBool("isCrouch", true);  
         }
         else if (Input.GetKeyUp(KeyCode.C))
         {
             isCrouching = false;
-            playerCollider.height = originalColliderHeight;  // Collider'ý eski haline getir
-            playerCollider.center = originalColliderCenter;  // Collider merkezini eski haline getir
-            animator.SetBool("isCrouch", false);  // Crouch animasyonunu durdur
+            playerCollider.height = originalColliderHeight;  
+            playerCollider.center = originalColliderCenter;  
+            animator.SetBool("isCrouch", false);  
         }
 
-        // Hareket hýzý ayarlama
+        
         float currentSpeed = isCrouching ? crouchSpeed : moveSpeed;
         Vector3 move = new Vector3(horizontalInput * currentSpeed, rb.velocity.y, 0);
         rb.velocity = new Vector3(move.x * Time.timeScale, rb.velocity.y, rb.velocity.z);
 
-        // Animator'a hýz parametresi gönder
+        
         float speed = new Vector3(rb.velocity.x, 0, rb.velocity.z).magnitude;
-        animator.SetFloat("speed", speed);  // speed parametresini animator'a gönder
+        animator.SetFloat("speed", speed);  
 
-        // Zýplama iþlemi
+        
         if (Input.GetKeyDown(KeyCode.Space) && isGrounded && !isCrouching)
         {
             rb.AddForce(Vector3.up * jumpForce, ForceMode.Impulse);
             isGrounded = false;
         }
 
-        // Havada olma animasyonu
+        
         animator.SetBool("isFall", !isGrounded);
     }
 
