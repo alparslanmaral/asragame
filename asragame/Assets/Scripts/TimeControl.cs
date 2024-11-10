@@ -16,6 +16,7 @@ public class TimeControl : MonoBehaviour
     private List<Rigidbody> affectedRigidbodies = new List<Rigidbody>();
     private List<Animator> affectedAnimators = new List<Animator>();
     private List<Animation> affectedAnimations = new List<Animation>();
+    private List<EnemyFollow> enemyFollowScripts = new List<EnemyFollow>(); // EnemyFollow scriptlerini takip listesi
 
     void Start()
     {
@@ -87,6 +88,12 @@ public class TimeControl : MonoBehaviour
                 state.speed = timeScale;
             }
         }
+
+        // EnemyFollow scriptlerini devre dýþý býrak veya etkinleþtir
+        foreach (var enemyFollow in enemyFollowScripts)
+        {
+            enemyFollow.enabled = !isTimeSlowed;
+        }
     }
 
     private void FindAffectedObjects()
@@ -112,6 +119,12 @@ public class TimeControl : MonoBehaviour
             if (animation != null)
             {
                 affectedAnimations.Add(animation);
+            }
+
+            var enemyFollow = obj.GetComponent<EnemyFollow>();
+            if (enemyFollow != null)
+            {
+                enemyFollowScripts.Add(enemyFollow);
             }
         }
 

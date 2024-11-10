@@ -52,8 +52,17 @@ public class DashAbility : MonoBehaviour
         // Güç barýndan %20 azaltma
         timeControl.abilityDuration -= timeControl.maxAbilityDuration * 0.2f;
 
-        // Dash yönünde hareket etme
-        Vector3 movement = dashDirection * dashDistance;
-        transform.position += movement;
+        // Dash yönünde raycast ile engel kontrolü
+        RaycastHit hit;
+        Vector3 dashTarget = transform.position + dashDirection * dashDistance;
+
+        // Eðer bir engel varsa, engelin yanýna kadar git
+        if (Physics.Raycast(transform.position, dashDirection, out hit, dashDistance))
+        {
+            dashTarget = hit.point - dashDirection * 0.1f; // Engelin hemen önünde dur
+        }
+
+        // Karakteri hedef konuma taþý
+        transform.position = dashTarget;
     }
 }
